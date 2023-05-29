@@ -21,8 +21,8 @@ module.exports.getAllUsers = (req, res, next) => {
 
 module.exports.getUser = async (req, res, next) => {
   try {
-    const userName = req.params.userName;
-    const user = await User.findOne({ userName: userName });
+    const username = req.params.username;
+    const user = await User.findOne({ username: username });
     
     if (!user) {
       res.status(404).send({ message: 'User not found' });
@@ -50,28 +50,28 @@ module.exports.addUser = async (req, res) => {
       res.status(400).send({ message: passwordError.details[0].message });
       return;
     }
-    if (!req.body.userName || !req.body.password || !req.body.email) {
-      res.status(400).send({ message: 'Username, password, and email cannot be empty!' });
+    if (!req.body.username || !req.body.password || !req.body.email) {
+      res.status(400).send({ message: 'username, password, and email cannot be empty!' });
       return;
     }
 
-    const userName = req.body.userName;
+    const username = req.body.username;
     const email = req.body.email;
 
     const existingUser = await User.findOne({
       $or: [
-        { userName: userName },
+        { username: username },
         { email: email }
       ]
     });
 
     if (existingUser) {
-      res.status(400).send({ message: 'Username or email already exists' });
+      res.status(400).send({ message: 'username or email already exists' });
       return;
     }
 
     const newUser = new User({
-      userName: req.body.userName,
+      username: req.body.username,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -91,48 +91,58 @@ module.exports.addUser = async (req, res) => {
 
 module.exports.editUser = async (req, res) => {
   try {
-    const userName = req.params.userName;
-    if (!userName) {
-      res.status(400).send({ message: 'Invalid Username Supplied' });
+    const username = req.params.username;
+    if (!username) {
+      res.status(400).send({ message: 'Invalid username Supplied' });
       return;
     }
-    const password = req.body.password;
-    const passwordCheck = passwordUtil.passwordPass(password);
-    if (passwordCheck.error) {
-      res.status(400).send({ message: passwordCheck.error });
+
+    const { error: emailError } = emailSchema.validate(req.body.email);
+    if (emailError) {
+      res.status(400).send({ message: emailError.details[0].message });
       return;
     }
-    User.findOne({ username: userName }, function (err, user) {
-      user.userName = req.body.userName,
-      user.firstName = req.body.firstName,
-      user.lastName = req.body.lastName,
-      user.email = req.body.email,
-      user.password = req.body.password,
-      user.birthDate = req.body.birthDate,
-      user.phone = req.body.phone,
-      user.country = req.body.country,
-      user.profileImg = req.body.profileImg
-      user.save(function (err) {
-        if (err) {
-          res.status(500).json(err || 'Some error occurred while updating the contact.');
-        } else {
-          res.status(204).send();
-        }
-      });
-    });
+
+    const { error: passwordError } = passwordSchema.validate(req.body.password);
+    if (passwordError) {
+      res.status(400).send({ message: passwordError.details[0].message });
+      return;
+    }
+
+    const user = await User.findOne({ username: username });
+
+    if (!user) {
+      res.status(404).send({ message: 'User not found' });
+      return;
+    }
+    user.username = req.body.username;
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.email = req.body.email;
+    user.password = req.body.password;
+    user.birthDate = req.body.birthDate;
+    user.phone = req.body.phone;
+    user.country = req.body.country;
+    user.profileImg = req.body.profileImg;
+
+    await user.save();
+
+    res.status(200).send(user);
   } catch (err) {
     res.status(500).json(err);
   }
 };
 
+
+
 module.exports.deleteUser = async (req, res) => {
   try {
-    const userName = req.params.userName;
-    if (!userName) {
-      res.status(400).send({ message: 'Invalid Username Supplied' });
+    const username = req.params.username;
+    if (!username) {
+      res.status(400).send({ message: 'Invalid username Supplied' });
       return;
     }
-    User.deleteOne({ username: userName }, function (err, result) {
+    User.deleteOne({ username: username }, function (err, result) {
       if (err) {
         res.status(500).json(err || 'Some error occurred while deleting the contact.');
       } else {
