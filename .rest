@@ -1,0 +1,97 @@
+// LOCALHOST
+### Get all user data
+GET http://localhost:3000/users HTTP/1.1
+
+
+### Get user by username
+GET http://localhost:3000/users/:userName HTTP/1.1
+
+
+### Create contact
+POST http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+{
+      "userName": "jaredrobin",
+      "firstName": "Jared Robin",
+      "lastName": "Such",
+      "email": "killer123@example.com",
+      "password": "england",
+      "birthDate": "0000-00-00",
+      "phone": "any",
+      "country": "any",
+      "profileImg": "link"
+}
+
+### Edit contact
+PUT http://localhost:3000/users/:userName HTTP/1.1
+content-type: application/json
+
+{
+      "userName": "anyany123",
+      "firstName": "any",
+      "lastName": "any",
+      "email": "any",
+      "password": "any",
+      "birthDate": "0000-00-00",
+      "phone": "any",
+      "country": "any",
+      "profileImg": "link"
+}
+
+### DELETE contact
+DELETE http://localhost:3000/users/:userName HTTP/1.1
+content-type: application/json
+
+### DELETE all contacts
+DELETE http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+// RENDER.COM
+### Get all user data
+GET https://cse341-mw5a.onrender.com/users HTTP/1.1
+
+
+### Get user by username
+GET https://cse341-mw5a.onrender.com/users/suchjose84 HTTP/1.1
+
+
+### Create contact
+POST https://cse341-mw5a.onrender.com/users HTTP/1.1
+content-type: application/json
+
+{
+      "userName": "jaredrobin",
+      "firstName": "Jared Robin",
+      "lastName": "Such",
+      "email": "killer123@example.com",
+      "password": "england",
+      "birthDate": "0000-00-00",
+      "phone": "any",
+      "country": "any",
+      "profileImg": "link"
+}
+
+### Edit contact
+PUT https://cse341-mw5a.onrender.com/users/jaredrobin HTTP/1.1
+content-type: application/json
+
+{
+      "userName": "jaredrobin",
+      "firstName": "any",
+      "lastName": "mail",
+      "email": "any",
+      "password": "thailand",
+      "birthDate": "0000-00-00",
+      "phone": "any",
+      "country": "any",
+      "profileImg": "link"
+}
+
+### DELETE contact
+DELETE https://cse341-mw5a.onrender.com/users/jaredrobin HTTP/1.1
+content-type: application/json
+
+# ### DELETE all contacts
+# DELETE https://cse341-mw5a.onrender.com/users HTTP/1.1
+# content-type: application/json
