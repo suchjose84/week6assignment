@@ -5,10 +5,10 @@
     "description": "Trading API",
     "version": "1.0.0"
   },
-  "host": "cse341-mw5a.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/api-docs": {
