@@ -27,7 +27,9 @@ module.exports = (mongoose) => {
     profileImg: {
       type: String
     }
-  });
-
+  }, {
+    versionKey: false
+  }
+  );
   return mongoose.model('users', userSchema);
 };

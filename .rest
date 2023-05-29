@@ -4,7 +4,7 @@ GET http://localhost:3000/users HTTP/1.1
 
 
 ### Get user by username
-GET http://localhost:3000/users/:userName HTTP/1.1
+GET http://localhost:3030/users/suchjose84 HTTP/1.1
 
 
 ### Create contact

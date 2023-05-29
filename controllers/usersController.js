@@ -1,8 +1,6 @@
-// const mongodb = require('../db/connect');
-// const {ObjectId} = require('mongodb');
 const db = require('../models');
 const User = db.user;
-const passwordUtil = require('../util/validation_schema');
+const { emailSchema, passwordSchema } = require('../util/validation_schema');
 
 //get all user data
 module.exports.getAllUsers = (req, res, next) => {
@@ -21,20 +19,21 @@ module.exports.getAllUsers = (req, res, next) => {
   }
 };
 
-module.exports.getUser = (req, res, next) => {
+module.exports.getUser = async (req, res, next) => {
   try {
     const userName = req.params.userName;
-    User.find({ username: userName })
-      .then((data) => {
-        res.status(200).send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || 'Some error occurred while retrieving users.'
-        });
-      });
+    const user = await User.findOne({ userName: userName });
+    
+    if (!user) {
+      res.status(404).send({ message: 'User not found' });
+      return;
+    }
+    
+    res.status(200).send(user);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).send({
+      message: err.message || 'Some error occurred while retrieving users.'
+    });
   }
 };
 
@@ -51,7 +50,6 @@ module.exports.addUser = async (req, res) => {
       res.status(400).send({ message: passwordError.details[0].message });
       return;
     }
-
     if (!req.body.userName || !req.body.password || !req.body.email) {
       res.status(400).send({ message: 'Username, password, and email cannot be empty!' });
       return;
