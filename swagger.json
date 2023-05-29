@@ -46,7 +46,25 @@
                 "password": {
                   "example": "any"
                 },
-                "username": {
+                "userName": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "birthDate": {
+                  "example": "any"
+                },
+                "phone": {
+                  "example": "any"
+                },
+                "country": {
+                  "example": "any"
+                },
+                "profileImg": {
                   "example": "any"
                 }
               }
