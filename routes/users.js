@@ -5,16 +5,16 @@ const usersController = require('../controllers/usersController.js');
 routes.get('/users', usersController.getAllUsers);
 
 // GET /contacts/:id
-routes.get('/users/:userName', usersController.getUser);
+routes.get('/users/:username', usersController.getUser);
 
 // POST /contacts
 routes.post('/users', usersController.addUser);
 
 // PUT /contacts
-routes.put('/users/:userName', usersController.editUser);
+routes.put('/users/:username', usersController.editUser);
 
 // DELETE /contacts
-routes.delete('/users/:userName', usersController.deleteUser);
+routes.delete('/users/:username', usersController.deleteUser);
 
 // // DELETE /contacts
 // routes.delete('/users', usersController.deleteAllUsers);

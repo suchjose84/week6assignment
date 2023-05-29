@@ -84,12 +84,12 @@
         }
       }
     },
-    "/users/{userName}": {
+    "/users/{username}": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "userName",
+            "name": "username",
             "in": "path",
             "required": true,
             "type": "string"
@@ -111,7 +111,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "userName",
+            "name": "username",
             "in": "path",
             "required": true,
             "type": "string"
@@ -172,7 +172,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "userName",
+            "name": "username",
             "in": "path",
             "required": true,
             "type": "string"

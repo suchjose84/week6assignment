@@ -1,6 +1,6 @@
 [{
   
-  "userName": "suchjose84",
+  "username": "suchjose84",
   "firstName": "Jose",
   "lastName": "Such",
   "email": "suchjose@live.com",
@@ -11,7 +11,7 @@
   "profileImg": "link"
 }, {
   
-  "userName": "anyany1234",
+  "username": "anyany1234",
   "firstName": "any",
   "lastName": "any",
   "email": "any",
@@ -22,7 +22,7 @@
   "profileImg": "link"
 }, {
   
-  "userName": "anyany12345",
+  "username": "anyany12345",
   "firstName": "any",
   "lastName": "any",
   "email": "any",
@@ -33,7 +33,7 @@
   "profileImg": "link"
 }, {
   
-  "userName": "joebert914",
+  "username": "joebert914",
   "firstName": "joebert",
   "lastName": "such",
   "email": "bert914@example.com",
@@ -44,7 +44,7 @@
   "profileImg": "link"
 }, {
   
-  "userName": "jyannehailey",
+  "username": "jyannehailey",
   "firstName": "Jyanne Hailey",
   "lastName": "Such",
   "email": "hailey0512@example.com",
