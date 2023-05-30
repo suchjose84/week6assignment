@@ -169,18 +169,18 @@ module.exports.deleteUser = async (req, res, next) => {
   try {
     const username = req.params.username;
     if (!username) {
-      res.status(400).send({ message: 'Invalid username Supplied' });
-      return;
+      return res.status(400).send({ message: 'Invalid username supplied' });
     }
-    User.deleteOne({ username: username }, function (err, result) {
-      if (err) {
-        res.status(500).json(err || 'Some error occurred while deleting the contact.');
-      } else {
-        res.status(204).send(result);
-      }
-    });
+    
+    const result = await User.deleteOne({ username: username });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+    
+    res.status(204).send();
   } catch (err) {
-    res.status(500).json(err || 'Some error occurred while deleting the contact.');
+    res.status(500).send({ message: 'Some error occurred while deleting the user', error: err });
   }
 };
 
