@@ -149,7 +149,7 @@ module.exports.editUser = async (req, res) => {
     //request body is truthy (not null, undefined, false, 0, or an empty string), it will be assigned to the 
     //corresponding property of the user object. Otherwise, if the value from the request body is falsy, the 
     //existing value of the property (user.firstName, user.lastName, etc.) will be retained.
-    
+
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
     user.birthDate = birthDate || user.birthDate;
@@ -165,7 +165,7 @@ module.exports.editUser = async (req, res) => {
   }
 };
 
-module.exports.deleteUser = async (req, res) => {
+module.exports.deleteUser = async (req, res, next) => {
   try {
     const username = req.params.username;
     if (!username) {
