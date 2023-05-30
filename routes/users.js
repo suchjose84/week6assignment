@@ -1,22 +1,22 @@
 const routes = require('express').Router();
 const usersController = require('../controllers/usersController.js');
 
-// GET /contacts
+// GET all users
 routes.get('/users', usersController.getAllUsers);
 
-// GET /contacts/:id
+// GET a user
 routes.get('/users/:username', usersController.getUser);
 
-// POST /contacts
+// POST create user
 routes.post('/users', usersController.addUser);
 
-// PUT /contacts
+// PUT update user
 routes.put('/users/:username', usersController.editUser);
 
-// DELETE /contacts
+// DELETE a user
 routes.delete('/users/:username', usersController.deleteUser);
 
-// // DELETE /contacts
+// // DELETE /users
 // routes.delete('/users', usersController.deleteAllUsers);
 
 

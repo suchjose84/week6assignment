@@ -83,7 +83,7 @@ module.exports.addUser = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    res.status(201).send(savedUser);
+    res.status(201).send(savedUser).send({message: 'user successfully added'});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -91,39 +91,71 @@ module.exports.addUser = async (req, res) => {
 
 module.exports.editUser = async (req, res) => {
   try {
-    const username = req.params.username;
-    if (!username) {
-      res.status(400).send({ message: 'Invalid username Supplied' });
-      return;
-    }
+    const { username } = req.params;
+    const {
+      username: newUsername,
+      email: newEmail,
+      password,
+      firstName,
+      lastName,
+      birthDate,
+      phone,
+      country,
+      profileImg
+    } = req.body;
 
-    const { error: emailError } = emailSchema.validate(req.body.email);
+    const { error: emailError } = emailSchema.validate(newEmail);
     if (emailError) {
-      res.status(400).send({ message: emailError.details[0].message });
-      return;
+      return res.status(400).send({ message: emailError.details[0].message });
     }
-
-    const { error: passwordError } = passwordSchema.validate(req.body.password);
+    const { error: passwordError } = passwordSchema.validate(password);
     if (passwordError) {
-      res.status(400).send({ message: passwordError.details[0].message });
-      return;
+      return res.status(400).send({ message: passwordError.details[0].message });
     }
 
-    const user = await User.findOne({ username: username });
+    if (!username) {
+      return res.status(400).send({ message: 'Invalid username supplied' });
+    }
+
+    const user = await User.findOne({ username });
 
     if (!user) {
-      res.status(404).send({ message: 'User not found' });
-      return;
+      return res.status(404).send({ message: 'User not found' });
     }
-    user.username = req.body.username;
-    user.firstName = req.body.firstName;
-    user.lastName = req.body.lastName;
-    user.email = req.body.email;
-    user.password = req.body.password;
-    user.birthDate = req.body.birthDate;
-    user.phone = req.body.phone;
-    user.country = req.body.country;
-    user.profileImg = req.body.profileImg;
+
+    // checkif there are existing
+    if (newUsername !== user.username) {
+      const existingUsername = await User.findOne({ username: newUsername });
+      if (existingUsername) {
+        return res.status(409).send({ message: 'Username already exists' });
+      }
+      user.username = newUsername;
+    }
+    // checkif there are existing
+    if (newEmail !== user.email) {
+      const existingEmail = await User.findOne({ email: newEmail });
+      if (existingEmail) {
+        return res.status(409).send({ message: 'Email already exists' });
+      }
+      user.email = newEmail;
+    }
+
+    if (password) {
+      user.password = password;
+    }
+
+    // These lines use the logical OR (||) operator to set the values. 
+    //The logical OR operator returns the first truthy value it encounters. In this case, if the value from the 
+    //request body is truthy (not null, undefined, false, 0, or an empty string), it will be assigned to the 
+    //corresponding property of the user object. Otherwise, if the value from the request body is falsy, the 
+    //existing value of the property (user.firstName, user.lastName, etc.) will be retained.
+    
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
+    user.birthDate = birthDate || user.birthDate;
+    user.phone = phone || user.phone;
+    user.country = country || user.country;
+    user.profileImg = profileImg || user.profileImg;
 
     await user.save();
 
@@ -132,8 +164,6 @@ module.exports.editUser = async (req, res) => {
     res.status(500).json(err);
   }
 };
-
-
 
 module.exports.deleteUser = async (req, res) => {
   try {

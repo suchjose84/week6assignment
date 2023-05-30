@@ -5,10 +5,10 @@
     "description": "Trading API",
     "version": "1.0.0"
   },
-  "host": "localhost:3030",
+  "host": "week6personal.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/api-docs": {
@@ -122,13 +122,13 @@
             "schema": {
               "type": "object",
               "properties": {
+                "username": {
+                  "example": "any"
+                },
                 "email": {
                   "example": "any"
                 },
                 "password": {
-                  "example": "any"
-                },
-                "username": {
                   "example": "any"
                 },
                 "firstName": {
@@ -162,6 +162,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
           },
           "500": {
             "description": "Internal Server Error"

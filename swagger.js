@@ -5,8 +5,8 @@ const doc = {
     title: 'Eggs and More',
     description: 'Trading API'
   },
-  host: 'localhost:3030',
-  schemes: ['http']
+  host: 'week6personal.onrender.com',
+  schemes: ['https']
 };
 const outputFile = './swagger.json';
 const endpointsFiles = ['./routes/index.js'];
