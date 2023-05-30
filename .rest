@@ -40,7 +40,7 @@ content-type: application/json
 }
 
 ### DELETE contact
-DELETE http://localhost:3000/users/suchjose84 HTTP/1.1
+DELETE http://localhost:3000/users/anyany1234 HTTP/1.1
 content-type: application/json
 
 ### DELETE all contacts
