@@ -178,7 +178,7 @@ module.exports.deleteUser = async (req, res, next) => {
       return res.status(404).send({ message: 'User not found' });
     }
     
-    res.status(204).send();
+    res.status(204).send({message: 'user deleted'});
   } catch (err) {
     res.status(500).send({ message: 'Some error occurred while deleting the user', error: err });
   }
